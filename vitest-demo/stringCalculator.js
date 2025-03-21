@@ -1,22 +1,22 @@
-class StringCalculator {
+export class StringCalculator {
     static calculate(expression) {
         try {
             const tokens = this.tokenize(expression);
             const rpn = this.toRPN(tokens);
             const result = this.evaluateRPN(rpn);
+            if (isNaN(result)) {
+                return "Error: Invalid Expression";  
+            }
             return result.toString();
         } catch (error) {
-            return "Error: Invalid Expression";
+            return "Error: Invalid Expression";  
         }
     }
-
-
     static tokenize(expression) {
         const regex = /\d+(\.\d+)?|[\+\-\*\/\(\)]/g;
         return expression.match(regex) || [];
     }
 
-    
     static toRPN(tokens) {
         const precedence = { "+": 1, "-": 1, "*": 2, "/": 2 };
         const output = [];
@@ -68,11 +68,4 @@ class StringCalculator {
         return stack.pop();
     }
 }
-
-
-console.log(StringCalculator.calculate("2 + 3"));        // "5"
-console.log(StringCalculator.calculate("2.5 * 4"));      // "10"
-console.log(StringCalculator.calculate("10 / 4"));       // "2.5"
-console.log(StringCalculator.calculate("(2 + 3) * 4"));  // "20"
-console.log(StringCalculator.calculate("2 + 3 * 4"));    // "14"
-console.log(StringCalculator.calculate("10 / (2 + 3)")); // "2"
+export default StringCalculator;

@@ -1,4 +1,4 @@
-class binaryConverter{
+ export class binaryConverter{
     static toBinary(num){
         if(!Number.isInteger(num) || num<0){
             throw new Error("Podana liczba....");
@@ -38,13 +38,14 @@ class binaryConverter{
         }
         if(decimal === 0) return[0];
         
-        let resultArr= [];
-        const digits = "123456789ABCDEF";
-        while(decimal > 0){
-            resultArr.unshift(digits[decimal % toBase]);
-            decimal = Math.floor(decimal / toBase);
-        }
-        return resultArr;
+        let resultArr = [];
+    const digits = "0123456789ABCDEF"; 
+    while (decimal > 0) {
+      resultArr.unshift(digits[decimal % toBase]);
+      decimal = Math.floor(decimal / toBase);
+    }
+    
+    return resultArr;
     }
 }
 console.log(binaryConverter.toBinary(10));

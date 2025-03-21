@@ -1,4 +1,4 @@
-function  LongestIncreasingSubsequence(nums){
+export function  LongestIncreasingSubsequence(nums){
  if(nums.length === 0) return [];
 
  let tabDl = new Array(nums.length).fill(1);

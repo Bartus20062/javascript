@@ -1,10 +1,9 @@
-class DateFormatter {
+export class DateFormatter {
     static format(date, inputFormat = "DDMMYYYY", outputFormat = "DD-MM-YYYY") {
         const parsedDate = this.#parseDate(date, inputFormat);
         if (!parsedDate) return "Invalid date";
         return this.#formatDate(parsedDate, outputFormat);
     }
-
     static fromNow(date, inputFormat = "DDMMYYYY") {
         const parsedDate = this.#parseDate(date, inputFormat);
         if (!parsedDate) return "Invalid date";
@@ -37,7 +36,6 @@ class DateFormatter {
 
         return diff < 0 ? `${result} ago` : `in ${result}`;
     }
-
     static #parseDate(date, format) {
         const formatRegex = format
             .replace("DD", "(\\d{2})")
@@ -50,7 +48,6 @@ class DateFormatter {
         const [_, day, month, year] = match.map(Number);
         return new Date(year, month - 1, day);
     }
-
     static #formatDate(date, format) {
         const day = String(date.getDate()).padStart(2, "0");
         const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -64,8 +61,6 @@ class DateFormatter {
             .replace("Month", monthNames[date.getMonth()]);
     }
 }
-
-// Examples
-console.log(DateFormatter.format("31102011")); // "31-10-2011"
-console.log(DateFormatter.format("31102011", "DDMMYYYY", "DD Month YYYY")); // "31 October 2011"
+console.log(DateFormatter.format("31102011")); 
+console.log(DateFormatter.format("31102011", "DDMMYYYY", "DD Month YYYY")); 
 console.log(DateFormatter.fromNow("01032023", "DDMMYYYY"));

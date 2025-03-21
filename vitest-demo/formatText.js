@@ -1,4 +1,4 @@
-function formatText(text, maxLength = Infinity, maxLines = Infinity, wrapType = "none") {
+export function formatText(text, maxLength = Infinity, maxLines = Infinity, wrapType = "none") {
     if (typeof text !== "string" || maxLength < 1 || maxLines < 1) return "";
 
     let lines = [];
@@ -38,10 +38,5 @@ function formatText(text, maxLength = Infinity, maxLines = Infinity, wrapType = 
     
     return lines.join("\n");
 }
-
-// Examples
 console.log(formatText("Hello world, this is JavaScript", 10, 2, "word"));
-// "Hello\nworld,..."
-
 console.log(formatText("Hello world!", 5, 3, "character"));
-// "Hello\n worl\n d!"
