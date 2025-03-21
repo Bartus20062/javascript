@@ -4,6 +4,13 @@ export class DateFormatter {
         if (!parsedDate) return "Invalid date";
         return this.#formatDate(parsedDate, outputFormat);
     }
+
+    static #getTimeUnitText(value, unit) {
+        if (value > 0) {
+        return `${value}${unit}${value > 1 ? 's' : ''}`;
+        }
+    }
+    
     static fromNow(date, inputFormat = "DDMMYYYY") {
         const parsedDate = this.#parseDate(date, inputFormat);
         if (!parsedDate) return "Invalid date";
@@ -18,23 +25,17 @@ export class DateFormatter {
         const days = Math.floor(hours / 24);
         const months = Math.floor(days / 30);
         const years = Math.floor(months / 12);
-
+    
         let result;
-        if (years > 0) {
-            result = `${years} year${years > 1 ? 's' : ''}`;
-        } else if (months > 0) {
-            result = `${months} month${months > 1 ? 's' : ''}`;
-        } else if (days > 0) {
-            result = `${days} day${days > 1 ? 's' : ''}`;
-        } else if (hours > 0) {
-            result = `${hours} hour${hours > 1 ? 's' : ''}`;
-        } else if (minutes > 0) {
-            result = `${minutes} minute${minutes > 1 ? 's' : ''}`;
-        } else {
-            result = "just now";
-        }
-
-        return diff < 0 ? `${result} ago` : `in ${result}`;
+        result = this.#getTimeUnitText(years, 'year'),
+                 this.#getTimeUnitText(months, 'month'),
+                 this.#getTimeUnitText(days, 'day'),
+                 this.#getTimeUnitText(hours, 'hour'),
+                 this.#getTimeUnitText(minutes, 'minute'),
+                 this.#getTimeUnitText(seconds, 'second');
+    
+        
+       
     }
     static #parseDate(date, format) {
         const formatRegex = format
@@ -61,6 +62,7 @@ export class DateFormatter {
             .replace("Month", monthNames[date.getMonth()]);
     }
 }
+
 console.log(DateFormatter.format("31102011")); 
 console.log(DateFormatter.format("31102011", "DDMMYYYY", "DD Month YYYY")); 
 console.log(DateFormatter.fromNow("01032023", "DDMMYYYY"));

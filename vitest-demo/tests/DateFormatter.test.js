@@ -1,54 +1,41 @@
-import { describe, it, expect } from 'vitest';
-import { DateFormatter } from '../DateFormatter.js';  
-describe('DateFormatter', () => {
+import { describe, expect, test } from 'vitest';
+import { DateFormatter } from '../DateFormatter.js';
 
-  describe('format', () => {
-    it('should format date from DDMMYYYY to DD-MM-YYYY', () => {
-      const result = DateFormatter.format("31102011");
-      expect(result);
-    });
+describe("DateFormatter", () => {
 
-    it('should format date from DDMMYYYY to DD Month YYYY', () => {
-      const result = DateFormatter.format("31102011", "DDMMYYYY", "DD Month YYYY");
-      expect(result);
-    });
-
-    it('should format date from MMDDYYYY to MM-DD-YYYY', () => {
-      const result = DateFormatter.format("10252022", "MMDDYYYY", "MM-DD-YYYY");
-      expect(result);
-    });
-
-    it('should return "Invalid date" for invalid date format', () => {
-      const result = DateFormatter.format("3110201X");
-      expect(result);
-    });
+  test("formatowanie daty w formacie DD-MM-YYYY", () => {
+    expect(DateFormatter.format("31102011")).toBe("31-10-2011");
   });
 
-  describe('fromNow', () => {
-    it('should return the correct time difference from the past', () => {
-      const result = DateFormatter.fromNow("01032023", "DDMMYYYY");
-      expect(result);
-    });
+  test("formatowanie daty z nazwą miesiąca", () => {
+    expect(DateFormatter.format("31102011", "DDMMYYYY", "DD Month YYYY")).toBe("31 October 2011");
+  });
 
-    it('should return the correct time difference from the future', () => {
-      const result = DateFormatter.fromNow("01032023", "DDMMYYYY");
-      expect(result);
-    });
+  test("różnica czasu od teraz", () => {
+    const result = DateFormatter.fromNow("01032023", "DDMMYYYY");
+    expect(result);  // Oczekiwany wynik: in X days/years/months
+  });
 
-    it('should handle "just now" correctly', () => {
-      const result = DateFormatter.fromNow(new Date().toISOString(), "YYYY-MM-DD");
-      expect(result);
-    });
+  test("różnica czasu w przeszłości", () => {
+    const result = DateFormatter.fromNow("01012000", "DDMMYYYY");
+    expect(result);  // Oczekiwany wynik: in X years
+  });
 
-    it('should return the correct difference when the date is in the past', () => {
-      const result = DateFormatter.fromNow("01012021", "DDMMYYYY");
-      expect(result);
-    });
+  test("błędna data", () => {
+    expect(DateFormatter.format("3110201")).toBe("Invalid date");
+    expect(DateFormatter.format("3110201", "DDMMYYYY")).toBe("Invalid date");
+    expect(DateFormatter.fromNow("32-02-2020", "DD-MM-YYYY"));
+  });
 
-    it('should return "Invalid date" for invalid input date in fromNow', () => {
-      const result = DateFormatter.fromNow("31022021", "DDMMYYYY");
-      expect(result);
-    });
+  test("formatowanie z innym formatem wejściowym", () => {
+    expect(DateFormatter.format("2023-03-01", "YYYY-MM-DD", "DD/MM/YYYY"));
+  });
+
+  test("różnica czasu - aktualna data", () => {
+    const now = new Date();
+    const isoNow = now.toISOString();
+    const result = DateFormatter.fromNow(isoNow, "YYYY-MM-DDTHH:mm:ss.SSSZ");
+    expect(result);
   });
 
 });
