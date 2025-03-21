@@ -10,13 +10,13 @@ class StringCalculator {
         }
     }
 
-    // Rozbijanie wyrażenia na tokeny (liczby, operatory, nawiasy)
+
     static tokenize(expression) {
         const regex = /\d+(\.\d+)?|[\+\-\*\/\(\)]/g;
         return expression.match(regex) || [];
     }
 
-    // Konwersja na notację odwrotną polską (RPN) - Algorytm Shunting Yard
+    
     static toRPN(tokens) {
         const precedence = { "+": 1, "-": 1, "*": 2, "/": 2 };
         const output = [];
@@ -24,7 +24,7 @@ class StringCalculator {
 
         tokens.forEach(token => {
             if (!isNaN(token)) {
-                output.push(token); // Liczba
+                output.push(token); 
             } else if (token in precedence) {
                 while (operators.length && precedence[operators[operators.length - 1]] >= precedence[token]) {
                     output.push(operators.pop());
@@ -36,7 +36,7 @@ class StringCalculator {
                 while (operators.length && operators[operators.length - 1] !== "(") {
                     output.push(operators.pop());
                 }
-                operators.pop(); // Usuwamy "("
+                operators.pop(); 
             }
         });
 
@@ -47,7 +47,6 @@ class StringCalculator {
         return output;
     }
 
-    // Obliczanie wartości wyrażenia w RPN
     static evaluateRPN(rpn) {
         const stack = [];
 
@@ -70,7 +69,7 @@ class StringCalculator {
     }
 }
 
-// **Przykłady użycia**
+
 console.log(StringCalculator.calculate("2 + 3"));        // "5"
 console.log(StringCalculator.calculate("2.5 * 4"));      // "10"
 console.log(StringCalculator.calculate("10 / 4"));       // "2.5"

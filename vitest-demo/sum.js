@@ -1,4 +1,4 @@
-import { arrayStats } from './sum.js';
+
 
 function arrayStats(arr){
     if(arr.length === 0){

@@ -1,5 +1,5 @@
 
-function bubbleSort(array) {
+export function bubbleSort(array) {
     let n = array.length;
     for (let i = 0; i < n - 1; i++) {
         for (let j = 0; j < n - i - 1; j++) {
@@ -11,7 +11,7 @@ function bubbleSort(array) {
     return array;
 }
 
-function selectionSort(array) {
+export function selectionSort(array) {
     let n = array.length;
     for (let i = 0; i < n - 1; i++) {
         let minIndex = i;
@@ -26,7 +26,7 @@ function selectionSort(array) {
 }
 
 
-function insertionSort(array) {
+export function insertionSort(array) {
     let n = array.length;
     for (let i = 1; i < n; i++) {
         let key = array[i];
@@ -41,7 +41,7 @@ function insertionSort(array) {
 }
 
 
-function quickSort(array) {
+export function quickSort(array) {
     if (array.length <= 1) {
         return array;
     }
